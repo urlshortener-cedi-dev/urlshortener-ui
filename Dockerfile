@@ -19,8 +19,8 @@ COPY pkg/ pkg/
 
 # Build
 # TODO switch back to original
-#RUN CGO_ENABLED=0 GOOS=linux go build -a -o urlshortener-api main.go
-RUN make release
+RUN CGO_ENABLED=0 GOOS=linux go build -a -o urlshortener-ui main.go
+#RUN make release
 
 # Use distroless as minimal base image to package the urlshortener-api binary
 # Refer to https://github.com/GoogleContainerTools/distroless for more details
@@ -28,7 +28,7 @@ RUN make release
 #FROM gcr.io/distroless/static:nonroot
 FROM alpine:latest
 WORKDIR /
-COPY --from=builder /workspace/build/urlshortener-ui .
+COPY --from=builder /workspace/urlshortener-ui .
 COPY html/ html/
 
 USER 65532:65532

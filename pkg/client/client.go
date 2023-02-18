@@ -93,7 +93,7 @@ func (c *UIClient) HandleLoginOauthRedirect(ct *gin.Context) {
 		return
 	}
 
-	ct.SetCookie(authCookieName, t.AccessToken, 3600, "/", "localhost", true, true)
+	ct.SetCookie(authCookieName, t.AccessToken, 3600, "/", c.config.HostName, true, true)
 
 	// Finally, send a response to redirect the user to the "welcome" page
 	// with the access token

@@ -5,7 +5,6 @@ go 1.19
 require (
 	github.com/MrAlias/flow v0.1.5
 	github.com/gin-gonic/gin v1.8.2
-	github.com/mitchellh/go-homedir v1.1.0
 	github.com/phayes/permbits v0.0.0-20190612203442-39d7c581d2ee
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.9.0

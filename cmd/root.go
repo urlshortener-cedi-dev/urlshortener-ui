@@ -43,6 +43,7 @@ func Execute() {
 	globalConf.ClientSecret = os.Getenv("CLIENT_SECRET")
 	globalConf.SessionState = os.Getenv("SESSION_STATE")
 	globalConf.RedirectURL = os.Getenv("REDIRECT_URL")
+	globalConf.HostName = os.Getenv("HOSTNAME")
 
 	if developmentMode {
 		log.SetFormatter(&log.TextFormatter{

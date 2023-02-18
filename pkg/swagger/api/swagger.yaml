@@ -1,0 +1,300 @@
+---
+swagger: "2.0"
+info:
+  description: "A url shortener, written in Go running on Kubernetes"
+  version: "1.0"
+  title: "URL Shortener"
+  contact:
+    name: "Cedric Kienzler"
+    url: "cedi.dev"
+    email: "urlshortener-api@cedi.dev"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+basePath: "/"
+paths:
+  /api/v1/shortlink/:
+    get:
+      tags:
+      - "api/v1/"
+      summary: "list shortlinks"
+      description: "list shortlinks"
+      produces:
+      - "text/plain"
+      - "application/json"
+      parameters: []
+      security:
+      - bearerAuth: []
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/controller.ShortLink"
+        "401":
+          description: "Unauthorized"
+          schema:
+            type: "integer"
+        "404":
+          description: "NotFound"
+          schema:
+            type: "integer"
+        "500":
+          description: "InternalServerError"
+          schema:
+            type: "integer"
+  /api/v1/shortlink/{shortlink}:
+    get:
+      tags:
+      - "api/v1/"
+      summary: "get a shortlink"
+      description: "get a shortlink"
+      produces:
+      - "text/plain"
+      - "application/json"
+      parameters:
+      - name: "shortlink"
+        in: "path"
+        description: "the shortlink URL part (shortlink id)"
+        required: true
+        type: "string"
+        x-exportParamName: "Shortlink"
+      security:
+      - bearerAuth: []
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/controller.ShortLink"
+        "401":
+          description: "Unauthorized"
+          schema:
+            type: "integer"
+        "404":
+          description: "NotFound"
+          schema:
+            type: "integer"
+        "500":
+          description: "InternalServerError"
+          schema:
+            type: "integer"
+    post:
+      tags:
+      - "api/v1/"
+      summary: "create new shortlink"
+      description: "create a new shortlink"
+      consumes:
+      - "application/json"
+      produces:
+      - "text/plain"
+      - "application/json"
+      parameters:
+      - name: "shortlink"
+        in: "path"
+        description: "the shortlink URL part (shortlink id)"
+        required: true
+        type: "string"
+        x-exportParamName: "Shortlink"
+      - in: "body"
+        name: "spec"
+        description: "shortlink spec"
+        required: true
+        schema:
+          $ref: "#/definitions/v1alpha1.ShortLinkSpec"
+        x-exportParamName: "Spec"
+      security:
+      - bearerAuth: []
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            type: "integer"
+        "301":
+          description: "MovedPermanently"
+          schema:
+            type: "integer"
+        "302":
+          description: "Found"
+          schema:
+            type: "integer"
+        "307":
+          description: "TemporaryRedirect"
+          schema:
+            type: "integer"
+        "308":
+          description: "PermanentRedirect"
+          schema:
+            type: "integer"
+        "401":
+          description: "Unauthorized"
+          schema:
+            type: "integer"
+        "404":
+          description: "NotFound"
+          schema:
+            type: "integer"
+        "500":
+          description: "InternalServerError"
+          schema:
+            type: "integer"
+    put:
+      tags:
+      - "api/v1/"
+      summary: "update existing shortlink"
+      description: "update a new shortlink"
+      consumes:
+      - "application/json"
+      produces:
+      - "text/plain"
+      - "application/json"
+      parameters:
+      - name: "shortlink"
+        in: "path"
+        description: "the shortlink URL part (shortlink id)"
+        required: true
+        type: "string"
+        x-exportParamName: "Shortlink"
+      - in: "body"
+        name: "spec"
+        description: "shortlink spec"
+        required: true
+        schema:
+          $ref: "#/definitions/v1alpha1.ShortLinkSpec"
+        x-exportParamName: "Spec"
+      security:
+      - bearerAuth: []
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            type: "integer"
+        "401":
+          description: "Unauthorized"
+          schema:
+            type: "integer"
+        "404":
+          description: "NotFound"
+          schema:
+            type: "integer"
+        "500":
+          description: "InternalServerError"
+          schema:
+            type: "integer"
+    delete:
+      tags:
+      - "api/v1/"
+      summary: "delete shortlink"
+      description: "delete shortlink"
+      produces:
+      - "text/plain"
+      - "application/json"
+      parameters:
+      - name: "shortlink"
+        in: "path"
+        description: "the shortlink URL part (shortlink id)"
+        required: true
+        type: "string"
+        x-exportParamName: "Shortlink"
+      security:
+      - bearerAuth: []
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            type: "integer"
+        "401":
+          description: "Unauthorized"
+          schema:
+            type: "integer"
+        "404":
+          description: "NotFound"
+          schema:
+            type: "integer"
+        "500":
+          description: "InternalServerError"
+          schema:
+            type: "integer"
+securityDefinitions:
+  bearerAuth:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
+definitions:
+  controller.ShortLink:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      spec:
+        $ref: "#/definitions/v1alpha1.ShortLinkSpec"
+      status:
+        $ref: "#/definitions/v1alpha1.ShortLinkStatus"
+    example:
+      name: "name"
+      spec:
+        owner: "owner"
+        code: 6
+        owners:
+        - "owners"
+        - "owners"
+        after: 0
+        target: "target"
+      status:
+        changedby: "changedby"
+        lastmodified: "lastmodified"
+        count: 1
+  v1alpha1.ShortLinkSpec:
+    type: "object"
+    properties:
+      after:
+        type: "integer"
+        description: "RedirectAfter specifies after how many seconds to redirect (Default=3)\n\
+          +kubebuilder:default:=0\n+kubebuilder:validation:Minimum=0\n+kubebuilder:validation:Maximum=99"
+      code:
+        type: "integer"
+        description: "Code is the URL Code used for the redirection.\nleave on default\
+          \ (307) when using the HTML behavior. However, if you whish to use a HTTP\
+          \ 3xx redirect, set to the appropriate 3xx status code\n+kubebuilder:validation:Enum=200;300;301;302;303;304;305;307;308\n\
+          +kubebuilder:default:=307"
+      owner:
+        type: "string"
+        description: "Owner is the GitHub user name which created the shortlink\n\
+          +kubebuilder:validation:Required"
+      owners:
+        type: "array"
+        description: "Co-Owners are the GitHub user name which can also administrate\
+          \ this shortlink\n+kubebuilder:validation:Optional"
+        items:
+          type: "string"
+      target:
+        type: "string"
+        description: "Target specifies the target to which we will redirect\n+kubebuilder:validation:Required\n\
+          +kubebuilder:validation:MinLength=1"
+    example:
+      owner: "owner"
+      code: 6
+      owners:
+      - "owners"
+      - "owners"
+      after: 0
+      target: "target"
+  v1alpha1.ShortLinkStatus:
+    type: "object"
+    properties:
+      changedby:
+        type: "string"
+        description: "ChangedBy indicates who (GitHub User) changed the Shortlink\
+          \ last\n+kubebuilder:validation:Optional"
+      count:
+        type: "integer"
+        description: "Count represents how often this ShortLink has been called\n\
+          +kubebuilder:default:=0\n+kubebuilder:validation:Minimum=0"
+      lastmodified:
+        type: "string"
+        description: "LastModified is a date-time when the ShortLink was last modified\n\
+          +kubebuilder:validation:Format:date-time\n+kubebuilder:validation:Optional"
+    example:
+      changedby: "changedby"
+      lastmodified: "lastmodified"
+      count: 1

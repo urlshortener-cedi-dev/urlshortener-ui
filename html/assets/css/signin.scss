@@ -1,0 +1,69 @@
+* { box-sizing: border-box; }
+
+a {
+  color: #5266DD;
+  text-decoration: none;
+}
+
+body {
+  background: #F9F9F9;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.wrapper {
+  margin: 0 auto;
+  padding: 32px 0 15px;
+  width: 300px;
+}
+
+.header {
+  text-align: center;
+  
+  svg {
+    fill: lighten(#24292e, 5%);
+  }
+
+  h1 {
+    color: #24292e;
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: -0.5px;
+  }
+}
+
+.sign-in {
+  background: #FFF;
+  border: 1px solid #DDD;
+  border-radius: 4px;
+  padding: 10px 15px;
+  text-align: center;
+
+  .button {
+    border-radius: 2px;
+    margin: 10px 0;
+    padding: 9px 7px;
+    width: 100%;
+    display: block;
+
+    background: #2DB84C;
+    border: 1px solid darken(#2DB84C, 5%);
+    border-radius: 2px;
+    color: #FFF;
+    cursor: pointer;
+    font-weight: 600;
+    
+    &:hover {
+      background: darken(#2DB84C, 5%);
+    }
+  }
+}
+
+.create-account {
+  border: 1px solid #DDD;
+  color: #0b0b0b;
+  margin-top: 17px;
+  text-align: center;
+}

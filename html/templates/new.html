@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Urlshortener Dashboard</title>
+  <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+  <script src="./assets/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/home">Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/home">Shortlinks</a>
+        </li>
+
+        <li class="nav-item active">
+          <a class="nav-link" href="/new">New Shortlink<span class="sr-only">(current)</span></a>
+        </li>
+    </div>
+  </nav>
+
+  <div class="alert alert-warning" role="alert">
+    <h4 class="alert-heading">Development Mode</h4>
+    This is all just preview and not ready yet
+  </div>
+
+  <div class="mx-auto card border-0 shadow card-body" style="margin:20px; padding:40px; width: fit-content;">
+
+
+    <form action="/new/shortlink" method="post">
+
+      <div class="form-group">
+        <label for="urlInput">URL</label>
+        <input type="text" class="form-control" id="urlInput" required="required" name="url"
+          placeholder="https://cedi.dev/">
+        <small id="nameHelp" class="form-text text-muted">Enter a long URL to make a shortlink.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="nameInput">Name</label>
+        <input type="text" class="form-control" id="nameInput" required="required" name="name" placeholder="foobar2342">
+        <small id="nameHelp" class="form-text text-muted">This will be the vanity name for your shortlink.</small>
+      </div>
+
+      <div class="accordion" id="accordionExample">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <div class="form-group">
+                <input type="checkbox" class="btn btn-link" name="extendedCheckButton"
+                  onclick="javascript:expandAdditionalSettings()" id="extendedSettingsCheck" autocomplete="off">
+                <label class="btn btn btn-outline-primary" for="extendedSettingsCheck">Customize your link</label>
+              </div>
+            </h5>
+          </div>
+
+          <div id="collapseExtendedSettings" class="collapse" style="display:none" aria-labelledby="headingOne"
+            data-parent="#accordionExample">
+            <div class="card-body">
+
+              <div class="form-group">
+                <label for="coOwnersInput">Co-Owners</label>
+                <input type="text" class="form-control" id="coOwnersInput" name="co-owners" placeholder="octocat">
+                <small id="nameHelp" class="form-text text-muted">Add additional Owners. Use their GitHub name. Multiple
+                  values
+                  are allowed (comma separated)</small>
+              </div>
+
+              <div class="form-group">
+                <input type="radio" class="btn btn-check" name="redirectTypeOption"
+                  onclick="javascript:httpOrHtmlRedirectCheck()" id="httpRadio" value="http" autocomplete="off" checked>
+                <label class="btn btn btn-outline-primary" for="httpRadio">HTTP</label>
+
+                <input type="radio" class="btn btn-check" name="redirectTypeOption"
+                  onclick="javascript:httpOrHtmlRedirectCheck()" id="htmlRadio" value="html" autocomplete="off">
+                <label class="btn btn btn-outline-primary" for="htmlRadio">HTML</label>
+              </div>
+
+              <div id="ifHTML" style="display:none">
+                <div class="form-group">
+                  <label for="redirectAfterRange">Redirect after seconds</label><br />
+                  <div class="input-group mb-3">
+                    <input type="number" class="form-range" min="0" max="15" step="1" id="redirectAfterRange"
+                      name="redirectAfter" value="3">
+                    <div class="input-group-append">
+                      <span class="input-group-text" id="basic-addon2">s</span>
+                    </div>
+                  </div>
+                  <small id="redirectAfterHelp" class="form-text text-muted">Display a "you are being redirected" page
+                    for
+                    the
+                    selected amount of seconds.</small>
+                </div>
+              </div>
+
+              <div id="ifHTTP" style="display:block">
+                <div class="form-group">
+                  <label for="httpRedirectCodeSelect">HTTP Redirect code</label>
+                  <select class="form-control" id="httpRedirectCodeSelect" name="httpStatusCode">
+                    <option value="301">301 - Moved Permanently</option>
+                    <option value="302">302 - Found</option>
+                    <option value="303">303 - See Other</option>
+                    <option value="304">304 - Not Modified</option>
+                    <option value="307">307 - Temporary Redirect</option>
+                    <option value="308" selected>308 - Permanent Redirect</option>
+                  </select>
+                  <small id="httpRedirectCodeHelp" class="form-text text-muted">The HTML code which is used to indicate
+                    the
+                    redirect.
+                    Visit <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Redirections">this link</a> for
+                    more
+                    information.</small>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br />
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+  </div>
+
+  <script>
+    function httpOrHtmlRedirectCheck() {
+      if (document.getElementById('httpRadio').checked) {
+        document.getElementById('ifHTTP').style.display = 'block';
+        document.getElementById('ifHTML').style.display = 'none';
+      } else {
+        document.getElementById('ifHTML').style.display = 'block';
+        document.getElementById('ifHTTP').style.display = 'none';
+      }
+    }
+
+    function expandAdditionalSettings() {
+      if (document.getElementById('extendedSettingsCheck').checked) {
+        document.getElementById('collapseExtendedSettings').style.display = 'block';
+      } else {
+        document.getElementById('collapseExtendedSettings').style.display = 'none';
+      }
+    }
+  </script>
+
+</body>
+
+</html>

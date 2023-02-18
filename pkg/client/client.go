@@ -32,7 +32,7 @@ func (c *UIClient) HandleLogin(ct *gin.Context) {
 	_, span := c.tracer.Start(ct, "ShortlinkUI.HandleLogin")
 	defer span.End()
 
-	redirectURI := "http://localhost:8081/oauth/redirect"
+	redirectURI := c.config.RedirectURL
 	fmt.Println(redirectURI)
 
 	ct.HTML(

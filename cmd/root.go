@@ -44,6 +44,7 @@ func Execute() {
 	globalConf.SessionState = os.Getenv("SESSION_STATE")
 	globalConf.RedirectURL = os.Getenv("REDIRECT_URL")
 	globalConf.HostName = os.Getenv("HOSTNAME")
+	globalConf.ShortlinkURL = os.Getenv("SHORTLINK_URL")
 
 	if developmentMode {
 		log.SetFormatter(&log.TextFormatter{

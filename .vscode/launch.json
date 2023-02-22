@@ -10,6 +10,14 @@
             "request": "launch",
             "mode": "debug",
             "program": "${workspaceFolder}/main.go",
+            "env": {
+                "CLIENT_ID": "6694a234937970d453ec",
+                "CLIENT_SECRET": "_",
+                "SESSION_STATE": "sdfgoh2",
+                "REDIRECT_URL": "http://localhost:8080/oauth/redirect",
+                "HOSTNAME": "localhost",
+                "SHORTLINK_URL": "https://ccl.pw"
+            },
             "args": [
                 "serve",
                 "--bind-address",

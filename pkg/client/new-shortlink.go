@@ -8,18 +8,21 @@ import (
 
 	"github.com/cedi/urlshortener-ui/pkg/swagger"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 func (c *UIClient) HandleNewShortlink(ct *gin.Context) {
 	ctx, span := c.tracer.Start(ct, "ShortlinkUI.HandleNew")
 	defer span.End()
 
-	token, err := ct.Cookie(authCookieName)
+	log := logrus.New().WithContext(ctx)
 
+	token, err := ct.Cookie(authCookieName)
 	if err != nil {
-		ct.AbortWithError(http.StatusUnauthorized, err)
-		ct.Writer.Header().Set("Location", "/")
-		ct.Writer.WriteHeader(http.StatusFound)
+		span.RecordError(err)
+		log.WithError(err).Error("could not parse auth cookie")
+
+		ct.Redirect(http.StatusFound, "/login")
 		return
 	}
 

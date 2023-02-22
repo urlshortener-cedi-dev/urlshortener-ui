@@ -32,6 +32,15 @@ func NewGinGonicHTTPServer(bindAddr string) (*gin.Engine, *http.Server) {
 	//static path
 	router.Static("assets", "./html/assets")
 
+	// 404 page
+	router.NoRoute(func(ct *gin.Context) {
+		ct.HTML(
+			http.StatusNotFound,
+			"404.html",
+			gin.H{},
+		)
+	})
+
 	srv := &http.Server{
 		Addr:    bindAddr,
 		Handler: router,
@@ -44,6 +53,7 @@ func Load(router *gin.Engine, uiClient *client.UIClient) {
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	router.GET("/", uiClient.HandleLogin)
+	router.GET("/login", uiClient.HandleLogin)
 	router.GET("/oauth/redirect", uiClient.HandleLoginOauthRedirect)
 
 	router.GET("/home", uiClient.HandleHomePage)

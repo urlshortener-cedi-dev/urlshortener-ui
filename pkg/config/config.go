@@ -20,6 +20,7 @@ type Config struct {
 	SessionState string `yaml:"session_state"`
 	RedirectURL  string `yaml:"redirect_url"`
 	HostName     string `yaml:"hostname"`
+	ShortlinkURL string `yaml:"shortlink_url"`
 }
 
 // NewConfig creates a new, empty, config

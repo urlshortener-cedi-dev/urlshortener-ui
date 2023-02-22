@@ -58,24 +58,30 @@
         </thead>
         <tbody>
 
-          {{ range .shortlinks }}
+          {{ range $shortlink := .shortlinks }}
 
           <tr class="d-flex">
-            <td class="col-3">{{ .Name }}</td>
-            <td class="col-5">{{ .Spec.Target }}</td>
+            <td class="col-3">
+              <button class="btn btn-light" type="button" data-placement="top" title="copy" onclick="javascript:copyUrlToClipboard('{{$.copy_url}}/{{$shortlink.Name}}')">
+                <i class="fa fa-copy"></i>
+              </button>
+              <a class="btn btn-link" href="{{$.copy_url}}/{{$shortlink.Name}}">
+                {{ $shortlink.Name }}
+              </a>
+            </td>
+            <td class="col-5">{{ $shortlink.Spec.Target }}</td>
 
-            {{ if eq .Spec.Code 200 }}
-            <td class="col-2">HTML (after {{ .Spec.After }} sec.) </td>
+            {{ if eq $shortlink.Spec.Code 200 }}
+            <td class="col-2">HTML (after {{ $shortlink.Spec.After }} sec.) </td>
             {{ else }}
-            <td class="col-2">HTTP {{ .Spec.Code }}</td>
+            <td class="col-2">HTTP {{ $shortlink.Spec.Code }}</td>
             {{end }}
             <td class="col-2">
-              <!-- Call to action buttons -->
               <ul class="list-inline">
                 <li class="list-inline-item">
                   <form action="/edit" method="get">
                     <input type="text" style="display:none" class="form-control" id="name" name="name"
-                    value="{{ .Name }}">
+                    value="{{ $shortlink.Name }}">
                     <button class="btn btn-success btn-sm rounded-0" type="submit" data-toggle="tooltip"
                     data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
                   </form>
@@ -83,7 +89,7 @@
                 <li class="list-inline-item">
                   <form action="/delete" method="get">
                     <input type="text" style="display:none" class="form-control" id="name" name="name"
-                    value="{{ .Name }}">
+                    value="{{ $shortlink.Name }}">
                     <button class="btn btn-danger btn-sm rounded-0" type="submit" data-toggle="tooltip"
                     data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
                   </form>
@@ -99,6 +105,12 @@
 
     </div>
   </div>
+
+  <script>
+    function copyUrlToClipboard(url) {
+      navigator.clipboard.writeText(url);
+    }
+  </script>
 </body>
 
 </html>

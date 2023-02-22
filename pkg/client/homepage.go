@@ -12,7 +12,7 @@ import (
 )
 
 func (c *UIClient) HandleHomePage(ct *gin.Context) {
-	ctx, span := c.tracer.Start(ct, "ShortlinkUI.HandleLogin")
+	ctx, span := c.tracer.Start(ct, "ShortlinkUI.HandleHomePage")
 	defer span.End()
 
 	log := logrus.WithContext(ctx)

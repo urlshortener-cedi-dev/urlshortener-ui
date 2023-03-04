@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	serviceName    = "urlshortener-ui"
+	serviceName    = "urlshortener"
 	serviceVersion = "0.0.1"
 )
 

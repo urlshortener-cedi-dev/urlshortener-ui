@@ -4,6 +4,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/trace"
 
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -11,7 +13,7 @@ import (
 	"github.com/cedi/urlshortener-ui/pkg/client"
 )
 
-func NewGinGonicHTTPServer(bindAddr string) (*gin.Engine, *http.Server) {
+func NewGinGonicHTTPServer(bindAddr string, tracer trace.Tracer) (*gin.Engine, *http.Server) {
 	router := gin.New()
 	//router.Use(
 	//otelgin.Middleware("urlshortener"),
@@ -34,6 +36,11 @@ func NewGinGonicHTTPServer(bindAddr string) (*gin.Engine, *http.Server) {
 
 	// 404 page
 	router.NoRoute(func(ct *gin.Context) {
+		_, span := tracer.Start(ct, "404")
+		defer span.End()
+
+		span.SetAttributes(attribute.String("path", ct.Request.URL.Path))
+
 		ct.HTML(
 			http.StatusNotFound,
 			"404.html",

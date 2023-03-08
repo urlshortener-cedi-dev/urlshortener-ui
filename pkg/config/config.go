@@ -19,13 +19,30 @@ type Config struct {
 	ClientSecret string `yaml:"client_secret"`
 	SessionState string `yaml:"session_state"`
 	RedirectURL  string `yaml:"redirect_url"`
-	HostName     string `yaml:"hostname"`
+	DashboardURL string `yaml:"hostname"`
 	ShortlinkURL string `yaml:"shortlink_url"`
 }
 
 // NewConfig creates a new, empty, config
 func NewConfig() *Config {
 	return &Config{}
+}
+
+// NewConfig creates a new, empty, config
+func NewConfigFromEnv() *Config {
+	conf := NewConfig()
+
+	// OIDC related
+	conf.ClientID = os.Getenv("CLIENT_ID")
+	conf.ClientSecret = os.Getenv("CLIENT_SECRET")
+	conf.SessionState = os.Getenv("SESSION_STATE")
+	conf.RedirectURL = os.Getenv("REDIRECT_URL")
+
+	// config
+	conf.DashboardURL = os.Getenv("DASHBOARD_URL")
+	conf.ShortlinkURL = os.Getenv("SHORTLINK_URL")
+
+	return conf
 }
 
 // Save saves a configuration

@@ -9,11 +9,37 @@ import (
 	"github.com/cedi/urlshortener-ui/pkg/swagger"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
+	"go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin"
+	"go.opentelemetry.io/otel/trace"
 )
 
+func (c *UIClient) HandleNew(ct *gin.Context) {
+	ctx := ct.Request.Context()
+	span := trace.SpanFromContext(ctx)
+
+	// Check if the span was sampled and is recording the data
+	if !span.IsRecording() {
+		_, span = c.tracer.Start(ctx, "UIClient.HandleNew")
+		defer span.End()
+	}
+
+	otelgin.HTML(
+		ct,
+		http.StatusOK,
+		"new.html",
+		gin.H{},
+	)
+}
+
 func (c *UIClient) HandleNewShortlink(ct *gin.Context) {
-	ctx, span := c.tracer.Start(ct, "ShortlinkUI.HandleNew")
-	defer span.End()
+	ctx := ct.Request.Context()
+	span := trace.SpanFromContext(ctx)
+
+	// Check if the span was sampled and is recording the data
+	if !span.IsRecording() {
+		ctx, span = c.tracer.Start(ctx, "UIClient.HandleNewShortlink")
+		defer span.End()
+	}
 
 	log := logrus.New().WithContext(ctx)
 
@@ -53,12 +79,7 @@ func (c *UIClient) HandleNewShortlink(ct *gin.Context) {
 		code = 200
 	}
 
-	client := swagger.NewAPIClient(&swagger.Configuration{
-		BasePath:  "https://api.short.cedi.dev",
-		UserAgent: "urlshortener-ui",
-	})
-
-	client.Apiv1Api.ApiV1ShortlinkShortlinkPost(auth, name, swagger.V1alpha1ShortLinkSpec{
+	c.apiClient.Apiv1Api.ApiV1ShortlinkShortlinkPost(auth, name, swagger.V1alpha1ShortLinkSpec{
 		After:  int32(redirectAfter),
 		Code:   int32(code),
 		Owner:  ghUser.Login,

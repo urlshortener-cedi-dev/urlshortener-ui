@@ -8,11 +8,18 @@ import (
 	"github.com/cedi/urlshortener-ui/pkg/swagger"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
+	"go.opentelemetry.io/otel/trace"
 )
 
 func (c *UIClient) HandleDeleteShortlink(ct *gin.Context) {
-	ctx, span := c.tracer.Start(ct, "ShortlinkUI.HandleNew")
-	defer span.End()
+	ctx := ct.Request.Context()
+	span := trace.SpanFromContext(ctx)
+
+	// Check if the span was sampled and is recording the data
+	if !span.IsRecording() {
+		ctx, span = c.tracer.Start(ctx, "UIClient.HandleDeleteShortlink")
+		defer span.End()
+	}
 
 	log := logrus.New().WithContext(ctx)
 
@@ -36,12 +43,7 @@ func (c *UIClient) HandleDeleteShortlink(ct *gin.Context) {
 
 	shortLinkName := ct.Query("name")
 
-	client := swagger.NewAPIClient(&swagger.Configuration{
-		BasePath:  "https://api.short.cedi.dev",
-		UserAgent: "urlshortener-ui",
-	})
-
-	_, resp, err := client.Apiv1Api.ApiV1ShortlinkShortlinkDelete(auth, shortLinkName)
+	_, resp, err := c.apiClient.Apiv1Api.ApiV1ShortlinkShortlinkDelete(auth, shortLinkName)
 	if resp.StatusCode != http.StatusOK && err != nil {
 		ct.AbortWithError(resp.StatusCode, err)
 	}

@@ -1,10 +1,14 @@
 package cmd
 
 import (
+	"net/http"
+
 	"github.com/cedi/urlshortener-ui/pkg/client"
 	"github.com/cedi/urlshortener-ui/pkg/router"
+	"github.com/cedi/urlshortener-ui/pkg/swagger"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cobra"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -20,7 +24,16 @@ var serveCMD = &cobra.Command{
 	Example: "urlshortener-ui serve",
 	Args:    cobra.ExactArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
-		uiClient := client.NewUIClient(Tracer, globalConf)
+
+		apiClient := swagger.NewAPIClient(&swagger.Configuration{
+			BasePath:  globalConf.ShortlinkURL,
+			UserAgent: "urlshortener-ui",
+			HTTPClient: &http.Client{
+				Transport: otelhttp.NewTransport(http.DefaultTransport),
+			},
+		})
+
+		uiClient := client.NewUIClient(Tracer, globalConf, apiClient)
 
 		// Init Gin Framework
 		if debug {

@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	serviceName    = "urlshortener"
+	serviceName    = "urlshortener-ui"
 	serviceVersion = "0.0.1"
 )
 
@@ -37,14 +37,7 @@ func Execute() {
 	var err error
 	config.ConfigPath = configPath
 
-	globalConf = config.NewConfig()
-
-	globalConf.ClientID = os.Getenv("CLIENT_ID")
-	globalConf.ClientSecret = os.Getenv("CLIENT_SECRET")
-	globalConf.SessionState = os.Getenv("SESSION_STATE")
-	globalConf.RedirectURL = os.Getenv("REDIRECT_URL")
-	globalConf.HostName = os.Getenv("HOSTNAME")
-	globalConf.ShortlinkURL = os.Getenv("SHORTLINK_URL")
+	globalConf = config.NewConfigFromEnv()
 
 	if developmentMode {
 		log.SetFormatter(&log.TextFormatter{
@@ -64,6 +57,8 @@ func Execute() {
 		log.Error(err, "failed initializing tracing")
 		os.Exit(1)
 	}
+
+	observability.InitLogging(serviceName, serviceVersion)
 
 	defer func() {
 		if err := tp.Shutdown(context.Background()); err != nil {

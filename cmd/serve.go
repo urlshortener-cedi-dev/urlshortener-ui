@@ -48,7 +48,7 @@ var serveCMD = &cobra.Command{
 			log.SetFormatter(&log.JSONFormatter{})
 		}
 
-		r, srv := router.NewGinGonicHTTPServer(bindAddress, Tracer)
+		r, srv := router.NewGinGonicHTTPServer(bindAddress, Tracer, serviceName)
 
 		router.Load(r, uiClient)
 

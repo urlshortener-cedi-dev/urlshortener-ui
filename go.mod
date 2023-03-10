@@ -4,6 +4,7 @@ go 1.19
 
 require (
 	github.com/MrAlias/flow v0.1.5
+	github.com/cedi/urlshortener v0.0.0-20230310171451-37f7ae8b2205
 	github.com/gin-gonic/gin v1.9.0
 	github.com/phayes/permbits v0.0.0-20190612203442-39d7c581d2ee
 	github.com/pkg/errors v0.9.1
@@ -21,9 +22,43 @@ require (
 )
 
 require (
+	github.com/KyleBanks/depth v1.2.1 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/emicklei/go-restful/v3 v3.10.1 // indirect
+	github.com/evanphx/json-patch/v5 v5.6.0 // indirect
 	github.com/felixge/httpsnoop v1.0.3 // indirect
+	github.com/gin-gonic/contrib v0.0.0-20221130124618-7e01895a63f2 // indirect
+	github.com/go-openapi/jsonpointer v0.19.6 // indirect
+	github.com/go-openapi/jsonreference v0.20.2 // indirect
+	github.com/go-openapi/spec v0.20.8 // indirect
+	github.com/go-openapi/swag v0.22.3 // indirect
+	github.com/gogo/protobuf v1.3.2 // indirect
+	github.com/google/gnostic v0.6.9 // indirect
+	github.com/google/go-cmp v0.5.9 // indirect
+	github.com/google/gofuzz v1.2.0 // indirect
+	github.com/josharian/intern v1.0.0 // indirect
+	github.com/mailru/easyjson v0.7.7 // indirect
+	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
+	github.com/swaggo/files v1.0.0 // indirect
+	github.com/swaggo/gin-swagger v1.5.3 // indirect
+	github.com/swaggo/swag v1.8.10 // indirect
 	github.com/uptrace/opentelemetry-go-extra/otelutil v0.1.21 // indirect
 	go.opentelemetry.io/otel/metric v0.37.0 // indirect
+	golang.org/x/exp v0.0.0-20230304125523-9ff063c70017 // indirect
+	golang.org/x/term v0.5.0 // indirect
+	golang.org/x/time v0.3.0 // indirect
+	golang.org/x/tools v0.6.0 // indirect
+	gopkg.in/inf.v0 v0.9.1 // indirect
+	k8s.io/api v0.26.2 // indirect
+	k8s.io/apimachinery v0.26.2 // indirect
+	k8s.io/client-go v0.26.2 // indirect
+	k8s.io/klog/v2 v2.90.0 // indirect
+	k8s.io/kube-openapi v0.0.0-20230217203603-ff9a8e8fa21d // indirect
+	k8s.io/utils v0.0.0-20230209194617-a36077c30491 // indirect
+	sigs.k8s.io/controller-runtime v0.14.5 // indirect
+	sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd // indirect
+	sigs.k8s.io/structured-merge-diff/v4 v4.2.3 // indirect
+	sigs.k8s.io/yaml v1.3.0 // indirect
 )
 
 require (

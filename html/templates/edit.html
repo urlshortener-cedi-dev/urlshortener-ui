@@ -13,7 +13,7 @@
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar fixed-top navbar-expand-sm navbar-expand navbar-dark bg-dark">
     <a class="navbar-brand" href="/home">Dashboard</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,13 +26,16 @@
           <a class="nav-link" href="/home">Shortlinks</a>
         </li>
 
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" href="/new">New Shortlink<span class="sr-only">(current)</span></a>
         </li>
     </div>
   </nav>
 
-  <div class="alert alert-warning" role="alert">
+  <div style="height:56px;"></div>
+
+  <div class="alert alert-warning" role="alert"
+    style="padding:15px; margin-left:20px; margin-right:20px; margin-top:10px;">
     <h4 class="alert-heading">Development Mode</h4>
     This is all just preview and not ready yet
   </div>
@@ -62,11 +65,9 @@
         <div class="card">
           <div class="card-header" id="headingOne">
             <h5 class="mb-0">
-              <div class="form-group">
-                <input type="checkbox" class="btn btn-link" name="extendedCheckButton"
-                  onclick="javascript:expandAdditionalSettings()" id="extendedSettingsCheck" autocomplete="off" checked>
-                <label class="btn btn btn-outline-primary" for="extendedSettingsCheck">Customize your link</label>
-              </div>
+              <input style="display:none" type="checkbox" class="btn btn-link" name="extendedCheckButton"
+                onclick="javascript:expandAdditionalSettings()" id="extendedSettingsCheck" autocomplete="off" checked>
+              <label id="extendedSettingsButton" class="btn btn btn-outline-primary" for="extendedSettingsCheck">Customize your link</label>
             </h5>
           </div>
 
@@ -76,16 +77,20 @@
 
               <div class="form-group">
                 <label for="ownersInput">Owner</label>
-                <input type="text" class="form-control" id="ownerInput" name="owner" placeholder="octocat", value="{{ .shortlink.Spec.Owner }}">
-                <small id="ownerInputHelp" class="form-text text-muted">Add additional Owners. Use their GitHub name. Multiple
+                <input type="text" class="form-control" id="ownerInput" name="owner" placeholder="octocat" ,
+                  value="{{ .shortlink.Spec.Owner }}">
+                <small id="ownerInputHelp" class="form-text text-muted">Add additional Owners. Use their GitHub name.
+                  Multiple
                   values
                   are allowed (comma separated)</small>
               </div>
 
               <div class="form-group">
                 <label for="coOwnersInput">Co-Owners</label>
-                <input type="text" class="form-control" id="coOwnersInput" name="co-owners" placeholder="octocat", value="{{ .coowners }}">
-                <small id="coOwnersInputHelp" class="form-text text-muted">Add additional Owners. Use their GitHub name. Multiple
+                <input type="text" class="form-control" id="coOwnersInput" name="co-owners" placeholder="octocat" ,
+                  value="{{ .coowners }}">
+                <small id="coOwnersInputHelp" class="form-text text-muted">Add additional Owners. Use their GitHub name.
+                  Multiple
                   values
                   are allowed (comma separated)</small>
               </div>
@@ -95,19 +100,19 @@
                 <input type="radio" class="btn btn-check" name="redirectTypeOption"
                   onclick="javascript:httpOrHtmlRedirectCheck()" id="httpRadio" value="http" autocomplete="off" checked>
                 {{ else }}
-                <input type="radio" class="btn btn-check" name="redirectTypeOption"
+                <input style="display:none" type="radio" class="btn btn-check" name="redirectTypeOption"
                   onclick="javascript:httpOrHtmlRedirectCheck()" id="httpRadio" value="http" autocomplete="off">
                 {{ end }}
-                <label class="btn btn btn-outline-primary" for="httpRadio">HTTP</label>
+                <label id="httpButton" class="btn btn btn-outline-primary" for="httpRadio">HTTP</label>
 
                 {{ if eq .shortlink.Spec.Code 200 }}
-                <input type="radio" class="btn btn-check" name="redirectTypeOption"
+                <input style="display:none" type="radio" class="btn btn-check" name="redirectTypeOption"
                   onclick="javascript:httpOrHtmlRedirectCheck()" id="htmlRadio" value="html" autocomplete="off" checked>
                 {{ else }}
-                <input type="radio" class="btn btn-check" name="redirectTypeOption"
+                <input style="display:none" type="radio" class="btn btn-check" name="redirectTypeOption"
                   onclick="javascript:httpOrHtmlRedirectCheck()" id="htmlRadio" value="html" autocomplete="off">
                 {{ end }}
-                <label class="btn btn btn-outline-primary" for="htmlRadio">HTML</label>
+                <label id="htmlButton" class="btn btn btn-outline-primary" for="htmlRadio">HTML</label>
               </div>
 
               <div id="ifHTML" style="display:none">
@@ -127,7 +132,7 @@
                 </div>
               </div>
 
-              <div id="ifHTTP" style="display:block">
+              <div id="ifHTTP" style="display:none">
                 <div class="form-group">
                   <label for="httpRedirectCodeSelect">HTTP Redirect code</label>
                   <select class="form-control" id="httpRedirectCodeSelect" name="httpStatusCode">
@@ -201,19 +206,31 @@
       if (document.getElementById('httpRadio').checked) {
         document.getElementById('ifHTTP').style.display = 'block';
         document.getElementById('ifHTML').style.display = 'none';
+
+        document.getElementById('httpButton').classList.add('active');
+        document.getElementById('htmlButton').classList.remove('active');
       } else {
         document.getElementById('ifHTML').style.display = 'block';
         document.getElementById('ifHTTP').style.display = 'none';
+
+        document.getElementById('htmlButton').classList.add('active');
+        document.getElementById('httpButton').classList.remove('active');
       }
     }
 
     function expandAdditionalSettings() {
+      httpOrHtmlRedirectCheck();
+
       if (document.getElementById('extendedSettingsCheck').checked) {
         document.getElementById('collapseExtendedSettings').style.display = 'block';
+        document.getElementById('extendedSettingsButton').classList.add('active');
       } else {
         document.getElementById('collapseExtendedSettings').style.display = 'none';
+        document.getElementById('extendedSettingsButton').classList.remove('active');
       }
     }
+
+    expandAdditionalSettings();
   </script>
 
 </body>

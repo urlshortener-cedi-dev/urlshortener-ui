@@ -8,12 +8,14 @@ import (
 	"go.opentelemetry.io/otel/trace"
 
 	"github.com/cedi/urlshortener-ui/pkg/client"
+	promRouter "github.com/cedi/urlshortener/pkg/router"
 )
 
-func NewGinGonicHTTPServer(bindAddr string, tracer trace.Tracer) (*gin.Engine, *http.Server) {
+func NewGinGonicHTTPServer(bindAddr string, tracer trace.Tracer, serviceName string) (*gin.Engine, *http.Server) {
 	router := gin.New()
 	router.Use(
-		otelgin.Middleware("urlshortener"),
+		otelgin.Middleware(serviceName),
+		promRouter.PromMiddleware(serviceName),
 		//secure.Secure(secure.Options{
 		//	SSLRedirect:           true,
 		//	SSLProxyHeaders:       map[string]string{"X-Forwarded-Proto": "https"},
@@ -40,8 +42,7 @@ func NewGinGonicHTTPServer(bindAddr string, tracer trace.Tracer) (*gin.Engine, *
 }
 
 func Load(router *gin.Engine, uiClient *client.UIClient) {
-	// 404 page
-	router.NoRoute(uiClient.HandleNotFound)
+	router.NoRoute(uiClient.HandleNotFound) // 404 page
 
 	router.GET("/", uiClient.HandleLogin)
 	router.GET("/login", uiClient.HandleLogin)

@@ -13,7 +13,7 @@
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar fixed-top navbar-expand-sm navbar-expand navbar-dark bg-dark">
     <a class="navbar-brand" href="/home">Dashboard</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,10 @@
     </div>
   </nav>
 
-  <div class="alert alert-warning" role="alert">
+  <div style="height:56px;"></div>
+
+  <div class="alert alert-warning" role="alert"
+    style="padding:15px; margin-left:20px; margin-right:20px; margin-top:10px;">
     <h4 class="alert-heading">Development Mode</h4>
     This is all just preview and not ready yet
   </div>
@@ -59,11 +62,9 @@
         <div class="card">
           <div class="card-header" id="headingOne">
             <h5 class="mb-0">
-              <div class="form-group">
-                <input type="checkbox" class="btn btn-link" name="extendedCheckButton"
-                  onclick="javascript:expandAdditionalSettings()" id="extendedSettingsCheck" autocomplete="off">
-                <label class="btn btn btn-outline-primary" for="extendedSettingsCheck">Customize your link</label>
-              </div>
+              <input style="display:none" type="checkbox" class="btn btn-link" name="extendedCheckButton"
+                onclick="javascript:expandAdditionalSettings()" id="extendedSettingsCheck" autocomplete="off">
+              <label id="extendedSettingsButton" class="btn btn btn-outline-primary" for="extendedSettingsCheck" style="margin-bottom:0;">Customize your link</label>
             </h5>
           </div>
 
@@ -80,13 +81,13 @@
               </div>
 
               <div class="form-group">
-                <input type="radio" class="btn btn-check" name="redirectTypeOption"
+                <input style="display:none" type="radio" class="btn btn-check" name="redirectTypeOption"
                   onclick="javascript:httpOrHtmlRedirectCheck()" id="httpRadio" value="http" autocomplete="off" checked>
-                <label class="btn btn btn-outline-primary" for="httpRadio">HTTP</label>
+                <label id="httpButton" class="btn btn btn-outline-primary" for="httpRadio">HTTP</label>
 
-                <input type="radio" class="btn btn-check" name="redirectTypeOption"
+                <input style="display:none" type="radio" class="btn btn-check" name="redirectTypeOption"
                   onclick="javascript:httpOrHtmlRedirectCheck()" id="htmlRadio" value="html" autocomplete="off">
-                <label class="btn btn btn-outline-primary" for="htmlRadio">HTML</label>
+                <label id="htmlButton" class="btn btn btn-outline-primary" for="htmlRadio">HTML</label>
               </div>
 
               <div id="ifHTML" style="display:none">
@@ -143,17 +144,27 @@
       if (document.getElementById('httpRadio').checked) {
         document.getElementById('ifHTTP').style.display = 'block';
         document.getElementById('ifHTML').style.display = 'none';
+
+        document.getElementById('httpButton').classList.add('active');
+        document.getElementById('htmlButton').classList.remove('active');
       } else {
         document.getElementById('ifHTML').style.display = 'block';
         document.getElementById('ifHTTP').style.display = 'none';
+
+        document.getElementById('htmlButton').classList.add('active');
+        document.getElementById('httpButton').classList.remove('active');
       }
     }
 
     function expandAdditionalSettings() {
+      httpOrHtmlRedirectCheck();
+
       if (document.getElementById('extendedSettingsCheck').checked) {
         document.getElementById('collapseExtendedSettings').style.display = 'block';
+        document.getElementById('extendedSettingsButton').classList.add('active');
       } else {
         document.getElementById('collapseExtendedSettings').style.display = 'none';
+        document.getElementById('extendedSettingsButton').classList.remove('active');
       }
     }
   </script>

@@ -13,7 +13,7 @@
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar fixed-top navbar-expand-sm navbar-expand navbar-dark bg-dark">
     <a class="navbar-brand" href="/home">Dashboard</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,10 @@
     </div>
   </nav>
 
-  <div class="alert alert-warning" role="alert" style="padding:15px">
+  <div style="height:56px;"></div>
+
+  <div class="alert alert-warning" role="alert"
+    style="padding:15px; margin-left:20px; margin-right:20px; margin-top:10px;">
     <h4 class="alert-heading">Development Mode</h4>
     This is all just preview and not ready yet
   </div>
@@ -62,7 +65,8 @@
 
           <tr class="d-flex">
             <td class="col-3">
-              <button class="btn btn-light" type="button" data-placement="top" title="copy" onclick="javascript:copyUrlToClipboard('{{$.copy_url}}/{{$shortlink.Name}}')">
+              <button class="btn btn-light" type="button" data-placement="top" title="copy"
+                onclick="javascript:copyUrlToClipboard('{{$.copy_url}}/{{$shortlink.Name}}')">
                 <i class="fa fa-copy"></i>
               </button>
               <a class="btn btn-link" href="{{$.copy_url}}/{{$shortlink.Name}}">
@@ -81,17 +85,17 @@
                 <li class="list-inline-item">
                   <form action="/edit" method="get">
                     <input type="text" style="display:none" class="form-control" id="name" name="name"
-                    value="{{ $shortlink.Name }}">
+                      value="{{ $shortlink.Name }}">
                     <button class="btn btn-success btn-sm rounded-0" type="submit" data-toggle="tooltip"
-                    data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                      data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
                   </form>
                 </li>
                 <li class="list-inline-item">
                   <form action="/delete" method="get">
                     <input type="text" style="display:none" class="form-control" id="name" name="name"
-                    value="{{ $shortlink.Name }}">
+                      value="{{ $shortlink.Name }}">
                     <button class="btn btn-danger btn-sm rounded-0" type="submit" data-toggle="tooltip"
-                    data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+                      data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
                   </form>
                 </li>
               </ul>

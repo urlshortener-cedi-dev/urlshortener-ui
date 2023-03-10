@@ -44,17 +44,18 @@ func NewGinGonicHTTPServer(bindAddr string, tracer trace.Tracer, serviceName str
 func Load(router *gin.Engine, uiClient *client.UIClient) {
 	router.NoRoute(uiClient.HandleNotFound) // 404 page
 
-	router.GET("/", uiClient.HandleLogin)
+	router.GET("/", uiClient.HandleRoot)
+
 	router.GET("/login", uiClient.HandleLogin)
 	router.GET("/oauth/redirect", uiClient.HandleLoginOauthRedirect)
 
 	router.GET("/home", uiClient.HandleHomePage)
 
 	router.GET("/new", uiClient.HandleNew)
+	router.POST("/new", uiClient.HandleNewShortlink)
+
 	router.GET("/edit", uiClient.HandleEdit)
-	router.GET("/delete", uiClient.HandleDeleteShortlink)
+	router.POST("/edit", uiClient.HandleEditShortlink)
 
-	router.POST("/new/shortlink", uiClient.HandleNewShortlink)
-	router.POST("/edit/shortlink", uiClient.HandleEditShortlink)
-
+	router.DELETE("/delete", uiClient.HandleDeleteShortlink)
 }

@@ -57,6 +57,8 @@ github.com/bytedance/sonic v1.8.1 h1:NqAHCaGaTzro0xMmnTCLUyRlbEP6r8MCA1cJUrH3Pu4
 github.com/bytedance/sonic v1.8.1/go.mod h1:i736AoUSYt75HyZLoJW9ERYxcy6eaN6h4BZXU064P/U=
 github.com/cedi/urlshortener v0.0.0-20230310171451-37f7ae8b2205 h1:gGsrTtVLd4Jq3Ze6QJP+AVe8A0YmfLMoj1BtrRi7W5c=
 github.com/cedi/urlshortener v0.0.0-20230310171451-37f7ae8b2205/go.mod h1:nGs5nXSzDjJKr4rwIPgTt/r1ECfI/g5CR4VnwD83R6g=
+github.com/cedi/urlshortener v0.0.0-20230310193120-a11e93ee6d38 h1:TK0KrN/vT2Q4PX+WTBj8ExF/mX0XjWwLPZPgU28Fw8I=
+github.com/cedi/urlshortener v0.0.0-20230310193120-a11e93ee6d38/go.mod h1:nGs5nXSzDjJKr4rwIPgTt/r1ECfI/g5CR4VnwD83R6g=
 github.com/cenkalti/backoff/v4 v4.2.0 h1:HN5dHm3WBOgndBH6E8V0q2jIYIR3s9yglV8k/+MN3u4=
 github.com/cenkalti/backoff/v4 v4.2.0/go.mod h1:Y3VNntkOUPxTVeUxJ/G5vcM//AlwfmyYozVcomhLiZE=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=

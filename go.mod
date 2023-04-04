@@ -9,7 +9,7 @@ require (
 	github.com/phayes/permbits v0.0.0-20190612203442-39d7c581d2ee
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.9.0
-	github.com/spf13/cobra v1.6.1
+	github.com/spf13/cobra v1.7.0
 	github.com/uptrace/opentelemetry-go-extra/otellogrus v0.1.21
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.40.0
 	go.opentelemetry.io/otel v1.14.0

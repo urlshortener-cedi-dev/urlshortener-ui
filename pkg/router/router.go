@@ -57,5 +57,5 @@ func Load(router *gin.Engine, uiClient *client.UIClient) {
 	router.GET("/edit", uiClient.HandleEdit)
 	router.POST("/edit", uiClient.HandleEditShortlink)
 
-	router.DELETE("/delete", uiClient.HandleDeleteShortlink)
+	router.GET("/delete", uiClient.HandleDeleteShortlink)
 }

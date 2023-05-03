@@ -12,11 +12,11 @@ require (
 	github.com/spf13/cobra v1.7.0
 	github.com/uptrace/opentelemetry-go-extra/otellogrus v0.1.21
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.40.0
-	go.opentelemetry.io/otel v1.14.0
+	go.opentelemetry.io/otel v1.15.1
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.14.0
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp v1.14.0
 	go.opentelemetry.io/otel/sdk v1.14.0
-	go.opentelemetry.io/otel/trace v1.14.0
+	go.opentelemetry.io/otel/trace v1.15.1
 	golang.org/x/oauth2 v0.7.0
 	gopkg.in/yaml.v2 v2.4.0
 )
@@ -68,7 +68,7 @@ require (
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
-	github.com/go-logr/logr v1.2.3 // indirect
+	github.com/go-logr/logr v1.2.4 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect

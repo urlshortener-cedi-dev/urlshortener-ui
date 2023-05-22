@@ -10,7 +10,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.9.2
 	github.com/spf13/cobra v1.7.0
-	github.com/uptrace/opentelemetry-go-extra/otellogrus v0.1.21
+	github.com/uptrace/opentelemetry-go-extra/otellogrus v0.2.0
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.40.0
 	go.opentelemetry.io/otel v1.15.1
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.15.1
@@ -42,7 +42,7 @@ require (
 	github.com/swaggo/files v1.0.0 // indirect
 	github.com/swaggo/gin-swagger v1.5.3 // indirect
 	github.com/swaggo/swag v1.8.10 // indirect
-	github.com/uptrace/opentelemetry-go-extra/otelutil v0.1.21 // indirect
+	github.com/uptrace/opentelemetry-go-extra/otelutil v0.2.0 // indirect
 	go.opentelemetry.io/otel/metric v0.37.0 // indirect
 	golang.org/x/exp v0.0.0-20230304125523-9ff063c70017 // indirect
 	golang.org/x/term v0.7.0 // indirect

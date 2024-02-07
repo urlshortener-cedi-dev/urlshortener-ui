@@ -12,11 +12,11 @@ require (
 	github.com/spf13/cobra v1.7.0
 	github.com/uptrace/opentelemetry-go-extra/otellogrus v0.1.21
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.40.0
-	go.opentelemetry.io/otel v1.15.1
-	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.15.1
-	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp v1.15.1
-	go.opentelemetry.io/otel/sdk v1.15.1
-	go.opentelemetry.io/otel/trace v1.15.1
+	go.opentelemetry.io/otel v1.23.1
+	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.23.1
+	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp v1.23.1
+	go.opentelemetry.io/otel/sdk v1.23.1
+	go.opentelemetry.io/otel/trace v1.23.1
 	golang.org/x/oauth2 v0.7.0
 	gopkg.in/yaml.v2 v2.4.0
 )

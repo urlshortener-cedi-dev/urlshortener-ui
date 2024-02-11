@@ -84,7 +84,7 @@
             {{ else }}
             <td class="col-2">HTTP {{ $shortlink.Spec.Code }}</td>
             {{end }}
-            <td class="col-2">HTTP {{ $shortlink.Status.Count }}</td>
+            <td class="col-2">{{ $shortlink.Status.Count }}</td>
             <td class="col-2">
               <ul class="list-inline">
                 <li class="list-inline-item">

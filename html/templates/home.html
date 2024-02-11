@@ -54,11 +54,11 @@
         <thead>
           <tr class="d-flex">
             <th class="col-0" scope="col">&nbsp;</th>
-            <th class="col-3" scope="col">Vanity Name</th>
+            <th class="col-2" scope="col">Vanity Name</th>
             <th class="col-5" scope="col">URL</th>
             <th class="col-2" scope="col">Type</th>
             <th class="col-1" scope="col">Count</th>
-            <th class="col-2" scope="col"></th>
+            <th class="col-1" scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -72,7 +72,7 @@
                 <i class="fa fa-copy"></i>
               </button>
             </td>
-            <td class="col-3">
+            <td class="col-2">
               <a class="btn btn-link" href="{{$.copy_url}}/{{$shortlink.Name}}">
                 {{ $shortlink.Name }}
               </a>
@@ -85,7 +85,7 @@
             <td class="col-2">HTTP {{ $shortlink.Spec.Code }}</td>
             {{end }}
             <td class="col-1">{{ $shortlink.Status.Count }}</td>
-            <td class="col-2">
+            <td class="col-1">
               <ul class="list-inline">
                 <li class="list-inline-item">
                   <form action="/edit" method="get">
